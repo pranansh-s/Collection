@@ -1,6 +1,6 @@
-# 🧩 Collection
+#Collection
 
-Welcome to **Collection** – a curated collection of small but powerful projects that depict various types of simulations, games or experiments that were made in a day or a few hours. 
+**Collection** – is a curated collection of small but powerful projects that depict various types of simulations, games, or experiments that were each made in a day or a few hours. 
 
 ---
 
