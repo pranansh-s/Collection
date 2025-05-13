@@ -30,7 +30,7 @@ Welcome to **Collection** – a curated collection of small but powerful project
 
 ---
 
-### 🍴 Boid Simulation
+### 🐦 Boid Simulation
 ![Boid](./gifs/Boid.gif)
 
 - **Description**: Simulates the movement pattern of birds/fishes following a simple set of rules.
@@ -39,21 +39,21 @@ Welcome to **Collection** – a curated collection of small but powerful project
 ---
 
 ### 🍴 MandelBrot & Julia Set
-![Julia](./gifs/Julia.gif)
+![Julia](./gifs/Mandelbrot.gif)
 
 - **Description**: Simulates the Mandelbrot and Julia set, which are famous fractals of the complex plane.
 - **Tech**: HTML5 Canvas, Vanilla JS, DOM Manipulation, C++, SDL2
 
 ---
 
-### 🍴 Verlet Integraion Simulation
+### 🪢 Verlet Integraion Simulation
 
 - **Description**: Uses reverse kinematics to simulate and display, interactive dynamic cloth/rope simulation
 - **Tech**: HTML5 Canvas, Vanilla JS, DOM Manipulation, C++, SDL2, Aseprite
 
 ---
 
-### 🍴 Physics Simulation
+### ⚛️ Physics Simulation
 
 - **Description**: Implements and allows simulation of a variety of Newtonian physics.
 - **Tech**: C++, SDL2, 
