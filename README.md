@@ -1,4 +1,4 @@
-#Collection
+## Collection
 
 **Collection** – is a curated collection of small but powerful projects that depict various types of simulations, games, or experiments that were each made in a day or a few hours. 
 
@@ -39,7 +39,7 @@
 ---
 
 ### 🍴 MandelBrot & Julia Set
-![Julia](./gifs/Mandelbrot.gif)
+![Julia](./gifs/Mandelbrot.png)
 
 - **Description**: Simulates the Mandelbrot and Julia set, which are famous fractals of the complex plane.
 - **Tech**: HTML5 Canvas, Vanilla JS, DOM Manipulation, C++, SDL2
