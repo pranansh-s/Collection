@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin:0px; display: grid; justify-content:center; align-items: center;">
+    <canvas id='canvas' style="overflow:none;"></canvas>
+    <input type="range" min="-100" max="100" value="0" id='real'>
+    <span id="realL">0</span>
+    <input type="range" min="-100" max="100" value="0" id='img'>
+    <span id="imgL">0</span>
+    <input type="range" min="0" max="360" value="0" id='color'>
+    <span id="colorL">0</span>
+</body>
+<script>    
+    var can = document.getElementById("canvas");    
+    var ctx = can.getContext('2d');
+
+    var inc = 0;
+    can.width = 1000;
+    can.height = 1000;
+
+    class Point{
+        constructor(x, y){
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    var c = new Point(-0.4 , 0.6);
+
+    function colour(pp){
+        var z = new Point(pp.x, pp.y);
+
+        for(var i = 0; i < 30; i++){
+
+            // MANDELBROT
+            // var t = z.x * z.x - z.y * z.y + pp.x;
+            // z.y = 2 * z.x * z.y + pp.y;
+            // z.x = t + pp.x;
+
+            // if(z.x * z.x + z.y * z.y > 4){
+            //  return `hsl(${(i % 360)}, 100%, ${50}%)`;
+            // }
+            
+            // JULIA
+            var t = z.x * z.x - z.y * z.y + c.x;
+            z.y = 2 * z.x * z.y + c.y;
+            z.x = t;    
+            if(z.x * z.x + z.y * z.y > 4){
+                return `hsl(${(i % 30) + Math.floor(document.getElementById('color').value)}, 100%, 50%)`;
+            }
+        }
+        return `hsl(0, 100%, 0%)`;
+    }
+
+    function update(){
+        c.x = document.getElementById('real').value / 100;
+        c.y = document.getElementById('img').value / 100;
+
+        inc++;
+        document.getElementById('realL').innerText = c.x;
+        document.getElementById('imgL').innerText = c.y;
+        document.getElementById('colorL').innerText = document.getElementById('color').value;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, can.width, can.height);
+
+        for(var x = 0; x < can.width; x += 1){
+            for(var y = 0; y < can.height; y += 1){
+                var p = new Point(((x / can.width) * 4) - 2, ((y / can.height) * 4) - 2);                
+    
+                var fill = colour(p);                
+                ctx.fillStyle = fill;
+    
+                ctx.fillRect(x, y, 1, 1);
+    
+                ctx.fill();
+            }   
+        }
+    }
+
+    setInterval(update, 100);
+    document.getElementById('real').addEventListener('change', update);
+    document.getElementById('img').addEventListener('change', update);
+    document.getElementById('color').addEventListener('change', update);
+</script>
+</html>

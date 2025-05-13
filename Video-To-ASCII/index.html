@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Video-to-ASCII</title>
+</head>
+<body>
+    <h1>VIDEO-to-ASCII</h1>
+    <div id="viewport">
+        <label id="preview" for="input">
+            <input type="file" name="input" id="input" accept="video/*" onchange="handleVideoPreview()"/>
+            Select File
+            <video id="video-input" muted></video>
+        </label>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="controls">
+        <label for="scale">Select Resolution: 
+            <b id="scale-percent">50%</b>
+            <input type="range" min="10" max="100" step="1" name="scale" id="scale" onchange="handleScaleChange(this.value)">
+        </label>
+        <div id="btns">
+            <button id="convert" onclick="handleAsyncFrames()">Convert</button>
+            <button id="download" disabled>Download</button>
+        </div>
+    </div>
+</body>
+<script src="./main.js"></script>
+</html>

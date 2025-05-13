@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body style="margin: 0px; padding: 0px; box-sizing: border-box;">
+    <canvas id='canvas' style="overflow:none;"></canvas>
+    <input type="range" min="5" max="500" value="100" id="nums">
+</body>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    class Point {
+        constructor(x, y, vx, vy) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        }
+    }
+
+    var num = 200;
+    const s = 5;
+    const sx = canvas.width = document.documentElement.scrollWidth;
+    const sy = canvas.height = document.documentElement.scrollHeight - 30;
+
+    var li = [];
+
+    function dst(p1, p2){
+        return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+    }
+
+    function join(p1, p2, w){
+        ctx.lineWidth = 10 / w;
+        ctx.beginPath();
+        ctx.moveTo(p1.x * s + s / 2, p1.y * s + s / 2);
+        ctx.lineTo(p2.x * s + s / 2, p2.y * s + s / 2);
+        ctx.stroke();
+    }
+
+    function init(){
+        var p1 = new Point(0, 0, 0, 0);
+        var p2 = new Point(0, sy / s, 0, 0);
+        var p3 = new Point(sx / s, 0, 0, 0);
+        var p4 = new Point(sx / s, sy / s, 0, 0);
+        li.push(p1, p2, p3, p4);
+
+        createPoints(num);
+    }
+
+    function createPoints(n){
+        for(var i = 0; i < n; i++){
+            let p = new Point(Math.floor(Math.random() * sx / s), Math.floor(Math.random() * sy / s), Math.random() * 1 - 0.5, Math.random() * 1 - 0.5);
+            li.push(p);
+        }
+    }
+
+    document.getElementById('nums').addEventListener('change', (e) => {
+        if(document.getElementById('nums').value > num){
+            createPoints(document.getElementById('nums').value - num);
+            num = document.getElementById('nums').value - 1;
+        }
+        else{
+            li.splice(0, num - document.getElementById('nums').value);
+            num = document.getElementById('nums').value - 1;
+        }
+    });
+
+    function update(){    
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, sx, sy);
+
+        for(var i = 0; i < num + 4; i++){
+            if(li[i].x > sx / s || li[i].x < 0) li[i].x = Math.abs(li[i].x - sx / s);
+            if(li[i].y > sy / s || li[i].y < 0) li[i].y = Math.abs(li[i].y - sy / s);
+
+            li[i].x += li[i].vx;
+            li[i].y += li[i].vy;
+            for(var j = i + 1; j < num + 4; j++){
+                if(i != j){
+                    let x = dst(li[i], li[j]);
+                    if(x <= 20 && x > 1){
+                        join(li[i], li[j], x);                    
+                    }
+                }
+            }
+        }
+
+        
+        for(var i = 0; i < num + 4; i++){
+            ctx.fillStyle = "#000000";
+            ctx.beginPath();
+            ctx.arc(li[i].x * s + s / 2, li[i].y * s + s / 2, s, 0, 2 * Math.PI);
+            ctx.fill();
+
+            ctx.fillStyle = "#ff0000"
+            ctx.beginPath();
+            ctx.arc(li[i].x * s + s / 2, li[i].y * s + s / 2, s / 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+    }
+
+    init();
+    setInterval(update, 50);
+</script>
+</html>
